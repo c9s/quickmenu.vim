@@ -24,9 +24,19 @@ fun! s:render()
   for name in keys(s:cmds)
     let cmd = s:cmds[ name ]
     let index += 1
-    let item_name = index . ') ' . cmd['name']
-                 cal append( line('$') , item_name)
-    exec 'nnoremap <buffer> ' . index . " :wincmd q<CR>:" . cmd['command'] . '<CR>'
+    let key = ""
+    if index < 10 
+      let key = index
+    else
+      let key = nr2char(index - 10 + 97)
+    endif
+
+    let item_name = key . ') ' . cmd['name']
+    cal append( line('$') , item_name)
+
+    " echo item_name
+    " echo 'nnoremap <buffer> ' . key . " :wincmd q<CR>:" . cmd['command'] . '<CR>'
+    exec 'nnoremap <buffer> ' . key . " :wincmd q<CR>:" . cmd['command'] . '<CR>'
   endfor
   normal ggdd
   " nnoremap <buffer><script> <CR> :cal <SID>get_command_name()<CR>
@@ -50,5 +60,9 @@ endf
 if exists('g:quickmenu_cmds')
   let s:cmds = extend(s:cmds, g:quickmenu_cmds)
 endif
-
 com! QMOpen  :cal QMOpen()
+
+" for i in range(1,11)
+"   cal QMAdd( "command1" . i , { "command": "echo 123"  } )
+" endfor
+" cal QMOpen()
