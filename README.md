@@ -6,6 +6,11 @@ let you execute command quickly. (from a menu). you can reveal a command menu
 and press the command number to execute correspond command. so you dont have to
 memorize these long command names.
 
+
+## Installation
+
+    make install
+
 ## Configuration
 
 define your commands:
